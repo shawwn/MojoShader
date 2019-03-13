@@ -81,12 +81,12 @@ static inline void Free(Context *ctx, void *ptr)
     ctx->free(ptr, ctx->malloc_data);
 } // Free
 
-static void *MallocBridge(int bytes, void *data)
+static void * MOJOSHADERCALL MallocBridge(int bytes, void *data)
 {
     return Malloc((Context *) data, (size_t) bytes);
 } // MallocBridge
 
-static void FreeBridge(void *ptr, void *data)
+static void MOJOSHADERCALL FreeBridge(void *ptr, void *data)
 {
     Free((Context *) data, ptr);
 } // FreeBridge
@@ -211,7 +211,7 @@ void MOJOSHADER_print_debug_token(const char *subsystem, const char *token,
 #include <unistd.h>
 #endif
 
-int MOJOSHADER_internal_include_open(MOJOSHADER_includeType inctype,
+int MOJOSHADERCALL MOJOSHADER_internal_include_open(MOJOSHADER_includeType inctype,
                                      const char *fname, const char *parent,
                                      const char **outdata,
                                      unsigned int *outbytes,
@@ -288,7 +288,7 @@ int MOJOSHADER_internal_include_open(MOJOSHADER_includeType inctype,
 } // MOJOSHADER_internal_include_open
 
 
-void MOJOSHADER_internal_include_close(const char *data, MOJOSHADER_malloc m,
+void MOJOSHADERCALL MOJOSHADER_internal_include_close(const char *data, MOJOSHADER_malloc m,
                                        MOJOSHADER_free f, void *d)
 {
     f((void *) data, d);
@@ -597,7 +597,7 @@ static void pop_source(Context *ctx)
 } // pop_source
 
 
-static void close_define_include(const char *data, MOJOSHADER_malloc m,
+static void MOJOSHADERCALL close_define_include(const char *data, MOJOSHADER_malloc m,
                                  MOJOSHADER_free f, void *d)
 {
     f((void *) data, d);

@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(MojoShader)
 
-OPTION(BUILD_SHARED "Build MojoShader as a shared library" OFF)
+OPTION(BUILD_SHARED "Build MojoShader as a shared library" ON)
 OPTION(PROFILE_D3D "Build MojoShader with support for the D3D profile" ON)
 OPTION(PROFILE_BYTECODE "Build MojoShader with support for the BYTECODE profile" ON)
 OPTION(PROFILE_GLSL120 "Build MojoShader with support for the GLSL120 profile" ON)
@@ -11,9 +11,9 @@ OPTION(PROFILE_ARB1_NV "Build MojoShader with support for the ARB1_NV profile" O
 OPTION(PROFILE_METAL "Build MojoShader with support for the Metal profile" ON)
 OPTION(EFFECT_SUPPORT "Build MojoShader with support for Effect framework files" ON)
 OPTION(COMPILER_SUPPORT "Build MojoShader with support for HLSL source files" ON)
-OPTION(FLIP_VIEWPORT "Build MojoShader with the ability to flip the GL viewport" OFF)
-OPTION(DEPTH_CLIPPING "Build MojoShader with the ability to simulate [0, 1] depth clipping" OFF)
-OPTION(XNA4_VERTEXTEXTURE "Build MojoShader with XNA4 vertex texturing behavior" OFF)
+OPTION(FLIP_VIEWPORT "Build MojoShader with the ability to flip the GL viewport" ON)
+OPTION(DEPTH_CLIPPING "Build MojoShader with the ability to simulate [0, 1] depth clipping" ON)
+OPTION(XNA4_VERTEXTEXTURE "Build MojoShader with XNA4 vertex texturing behavior" ON)
 
 INCLUDE_DIRECTORIES(.)
 

@@ -181,12 +181,12 @@ static inline void Free(Context *ctx, void *ptr)
     ctx->free(ptr, ctx->malloc_data);
 } // Free
 
-static void *MallocBridge(int bytes, void *data)
+static void * MOJOSHADERCALL MallocBridge(int bytes, void *data)
 {
     return Malloc((Context *) data, (size_t) bytes);
 } // MallocBridge
 
-static void FreeBridge(void *ptr, void *data)
+static void MOJOSHADERCALL FreeBridge(void *ptr, void *data)
 {
     Free((Context *) data, ptr);
 } // FreeBridge
@@ -1961,10 +1961,12 @@ static const MOJOSHADER_astDataType *build_datatype(Context *ctx,
     {
         assert(soa->dimension == NULL);
         memcpy(retval, dt, sizeof (MOJOSHADER_astDataType));
+        unsigned int type = (unsigned int)retval->type;
         if (isconst)
-            retval->type |= MOJOSHADER_AST_DATATYPE_CONST;
+            type |= (unsigned int)MOJOSHADER_AST_DATATYPE_CONST;
         else
-            retval->type &= ~MOJOSHADER_AST_DATATYPE_CONST;
+            type &= (unsigned int)~MOJOSHADER_AST_DATATYPE_CONST;
+        retval->type = (MOJOSHADER_astDataTypeType)type;
         return retval;
     } // if
 
@@ -4539,7 +4541,7 @@ static inline int generate_ir_temp(Context *ctx)
 static const LoopLabels *push_ir_loop(Context *ctx, const int isswitch)
 {
     // !!! FIXME: cache these allocations?
-    LoopLabels *retval = Malloc(ctx, sizeof (LoopLabels));
+    LoopLabels *retval = (LoopLabels*)Malloc(ctx, sizeof (LoopLabels));
     if (retval)
     {
         retval->start = (isswitch) ? -1 : generate_ir_label(ctx);
@@ -5920,7 +5922,7 @@ static void intermediate_representation(Context *ctx)
     const MOJOSHADER_astCompilationUnitFunction *astfn = NULL;
     const size_t arraylen = (ctx->user_func_index+1) * sizeof (MOJOSHADER_irStatement *);
 
-    ctx->ir = Malloc(ctx, arraylen);
+    ctx->ir = (MOJOSHADER_irStatement**) Malloc(ctx, arraylen);
     if (ctx->ir == NULL)
         return;
     memset(ctx->ir, '\0', arraylen);

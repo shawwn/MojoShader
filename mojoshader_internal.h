@@ -304,14 +304,14 @@ void MOJOSHADERCALL MOJOSHADER_internal_free(void *ptr, void *d);
 #define MOJOSHADER_internal_include_open NULL
 #define MOJOSHADER_internal_include_close NULL
 #else
-int MOJOSHADER_internal_include_open(MOJOSHADER_includeType inctype,
+int MOJOSHADERCALL MOJOSHADER_internal_include_open(MOJOSHADER_includeType inctype,
                                      const char *fname, const char *parent,
                                      const char **outdata,
                                      unsigned int *outbytes,
                                      MOJOSHADER_malloc m, MOJOSHADER_free f,
                                      void *d);
 
-void MOJOSHADER_internal_include_close(const char *data, MOJOSHADER_malloc m,
+void MOJOSHADERCALL MOJOSHADER_internal_include_close(const char *data, MOJOSHADER_malloc m,
                                        MOJOSHADER_free f, void *d);
 #endif
 

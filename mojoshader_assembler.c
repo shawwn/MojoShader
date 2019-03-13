@@ -93,12 +93,12 @@ static inline void Free(Context *ctx, void *ptr)
     ctx->free(ptr, ctx->malloc_data);
 } // Free
 
-static void *MallocBridge(int bytes, void *data)
+static void * MOJOSHADERCALL MallocBridge(int bytes, void *data)
 {
     return Malloc((Context *) data, (size_t) bytes);
 } // MallocBridge
 
-static void FreeBridge(void *ptr, void *data)
+static void MOJOSHADERCALL FreeBridge(void *ptr, void *data)
 {
     Free((Context *) data, ptr);
 } // FreeBridge
